@@ -11,7 +11,13 @@ import { today } from "./core/constants";
 import { getFirstDayOfTheMonth } from "./core/utils/getFirstDayOfTheMonth";
 import { useTheme } from "styled-components";
 
-const Calendar = ({ onDateChange, markedDates = [], selectedDateTime }) => {
+const Calendar = ({
+  onDateChange,
+  markedDates = [],
+  selectedDateTime,
+  disableSundays,
+  disableSaturdays,
+}) => {
   const theme = useTheme();
   const [showSubtitles, setShowSubtitles] = useState(false);
   const [currentInputValue, setCurrentInputValue] = useState({
@@ -82,15 +88,23 @@ const Calendar = ({ onDateChange, markedDates = [], selectedDateTime }) => {
 
     for (let day = 1; day <= daysInMonth; day++) {
       const date = new Date(newDate.getFullYear(), newDate.getMonth(), day);
+      const dayOfWeek = date.getDay();
       const isCurrentDate = today.toDateString() === date.toDateString();
       const markedDate = processedMarkedDates.find(
         (item) => item.date.toDateString() === date.toDateString()
       );
-      const isDateMarked = !!markedDate;
-      const isDisabled = isDateMarked && markedDate.disabled;
+      let isDisabled = !!markedDate && markedDate.disabled;
+
+      if (
+        (disableSundays && dayOfWeek === 0) ||
+        (disableSaturdays && dayOfWeek === 6)
+      ) {
+        isDisabled = true;
+      }
+
       const markedColor =
-        isDateMarked && markedDate.color ? markedDate.color : "white";
-      const periods = isDateMarked ? markedDate.periods || [] : [];
+        !!markedDate && markedDate.color ? markedDate.color : "white";
+      const periods = !!markedDate ? markedDate.periods || [] : [];
       const isSelected = Boolean(
         currentInputValue.date &&
           new Date(currentInputValue.date).toLocaleDateString("pt-BR") ===
@@ -105,7 +119,7 @@ const Calendar = ({ onDateChange, markedDates = [], selectedDateTime }) => {
           selectedDate={date}
           periods={periods}
           isCurrentDate={isCurrentDate}
-          isDateMarked={isDateMarked}
+          isDateMarked={!!markedDate}
           isDisabled={isDisabled}
           currentInputValue={currentInputValue}
           markedColor={markedColor}
@@ -115,7 +129,14 @@ const Calendar = ({ onDateChange, markedDates = [], selectedDateTime }) => {
     }
 
     return days;
-  }, [newDate, processedMarkedDates, currentInputValue, handleDayClick]);
+  }, [
+    newDate,
+    processedMarkedDates,
+    disableSundays,
+    disableSaturdays,
+    currentInputValue,
+    handleDayClick,
+  ]);
 
   return (
     <CalendarWrapper>
@@ -146,6 +167,8 @@ Calendar.propTypes = {
   onDateChange: PropTypes.func.isRequired,
   markedDates: PropTypes.array,
   selectedDateTime: PropTypes.string,
+  disableSundays: PropTypes.bool.isRequired,
+  disableSaturdays: PropTypes.bool.isRequired,
 };
 
 export { Calendar };

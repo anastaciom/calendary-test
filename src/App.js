@@ -92,6 +92,7 @@ const App = () => {
       name="DatePickerXbrain"
       primaryColor="green"
       secondaryColor="yellow"
+      disableSaturdays={true}
     />
   );
 };

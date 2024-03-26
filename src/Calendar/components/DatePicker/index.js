@@ -19,20 +19,20 @@ function XbrainDatePicker({
   defaultValue,
   primaryColor,
   secondaryColor,
+  disableSundays,
+  disableSaturdays,
 }) {
   const [selectedDateTime, setSelectedDateTime] = useState(defaultValue ?? "");
   const [isCalendarVisible, setIsCalendarVisible] = useState(false);
   const wrapperRef = useRef(null);
-
+  const onDateChange = (value) => {
+    setSelectedDateTime(value);
+    setIsCalendarVisible(false);
+  };
   const handleClickOutside = (event) => {
     if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
       setIsCalendarVisible(false);
     }
-  };
-
-  const onDateChange = (value) => {
-    setSelectedDateTime(value);
-    setIsCalendarVisible(false);
   };
 
   useEffect(() => {
@@ -73,6 +73,8 @@ function XbrainDatePicker({
             onDateChange={onDateChange}
             markedDates={markedDates}
             selectedDateTime={selectedDateTime}
+            disableSundays={disableSundays}
+            disableSaturdays={disableSaturdays}
           />
         )}
       </InputWrapper>
@@ -85,6 +87,8 @@ XbrainDatePicker.defaultProps = {
   label: "Data",
   clearable: false,
   defaultValue: "",
+  disableSundays: false,
+  disableSaturdays: false,
 };
 
 XbrainDatePicker.propTypes = {
@@ -95,6 +99,8 @@ XbrainDatePicker.propTypes = {
   defaultValue: PropTypes.string,
   primaryColor: PropTypes.string.isRequired,
   secondaryColor: PropTypes.string.isRequired,
+  disableSundays: PropTypes.bool,
+  disableSaturdays: PropTypes.bool,
 };
 
 export default XbrainDatePicker;
