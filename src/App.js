@@ -1,5 +1,5 @@
 import React from "react";
-import XbrainDatePicker from "./Calendary/components/DatePicker";
+import XbrainDatePicker from "./Calendar/components/DatePicker";
 
 const App = () => {
   const markedDates = [
