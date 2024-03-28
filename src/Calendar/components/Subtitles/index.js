@@ -13,6 +13,7 @@ const Subtitles = ({ subtitles }) => {
   const subtitlesListDefault = [
     { label: "Hoje", color: theme.primaryColor },
     { label: "Dia selecionado", color: theme.primaryColor },
+    { label: "Dia Bloqueado", color: theme.disabledBackground },
   ];
 
   return (

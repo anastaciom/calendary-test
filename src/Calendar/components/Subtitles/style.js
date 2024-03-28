@@ -1,4 +1,16 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+const responsiveWidth = css`
+  font-size: 14px;
+  width: 95%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media only screen and (max-width: 600px) {
+    font-size: 12px;
+  }
+`;
 
 const SubtitlesWrapper = styled.div`
   background-color: ${(props) => props.theme.backgroundColorCalendar};
@@ -21,25 +33,21 @@ const SubtitleItem = styled.div`
   display: flex;
   align-items: center;
   overflow: hidden;
-  height: 16px;
+  height: 14px;
   width: 100%;
 `;
 
 const SubtitleColor = styled.span`
-  width: 5%;
-  height: 42%;
-  border-radius: 50%;
+  width: 4%;
+  height: 40%;
+  border-radius: 100%;
   margin-right: 10px;
   background-color: ${(props) => props.color};
   border: 1px solid ${(props) => props.$borderColor};
 `;
 
 const SubtitleLabel = styled.label`
-  font-size: 13px;
-  width: 95%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  ${responsiveWidth}
 `;
 
 export { SubtitlesWrapper, SubtitleItem, SubtitleColor, SubtitleLabel };

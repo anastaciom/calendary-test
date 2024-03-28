@@ -2,10 +2,10 @@
   "name": "xbrain-calendar",
   "version": "1.0.0",
   "description": "Componente de Calenário.",
-  "engines": {
-    "node": ">=18.16.0"
-  },
-  "private": true,
+  "main": "src/calendar/index.js",
+  "private": false,
+  "author": "anastaciom",
+  "license": "MIT",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",

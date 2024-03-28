@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { getRgbString } from "../../core/utils/isRgb";
 
 const InputWrapper = styled.div`
   display: flex;
@@ -9,9 +10,6 @@ const InputWrapper = styled.div`
   position: relative;
 
   &:focus-within {
-    > div {
-      border-color: ${({ theme }) => theme.primaryColor};
-    }
     > label {
       color: ${({ theme }) => theme.primaryColor};
     }
@@ -37,9 +35,17 @@ const DatePickerWrapper = styled.input`
 
 const InputContentWrapper = styled.div`
   border-radius: 2px;
+  &:focus-within {
+    box-shadow: ${({ theme, $errorMode }) =>
+      `0 0 0 0.2rem rgba(${getRgbString($errorMode ? theme.errorColor : theme.primaryColor)}, 0.25)`};
+    border-color: ${({ theme, $errorMode }) =>
+      $errorMode ? theme.errorColor : theme.primaryColor};
+  }
   color: ${({ theme }) => theme.inputValueColor};
-  transition: border-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+  transition:
+    border-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
   font-size: 15px;
   cursor: pointer;
   height: 36px;

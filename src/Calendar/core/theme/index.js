@@ -1,4 +1,4 @@
-const theme = ({ primaryColor, secondaryColor }) => ({
+const theme = ({ primaryColor = "#FAA900", secondaryColor = "#201A28" }) => ({
   primaryColor,
   secondaryColor,
   divider: "#dadada",
@@ -11,6 +11,7 @@ const theme = ({ primaryColor, secondaryColor }) => ({
   inputValueColor: "rgba(69, 90, 100, 0.87)",
   backgroundColorArrowChangeMonthAndYear: "#0000004c",
   scrollbarColor: "#0000004c",
+  errorColor: "#f44336",
 });
 
 export { theme };

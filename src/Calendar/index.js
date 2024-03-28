@@ -17,6 +17,7 @@ const Calendar = ({
   selectedDateTime,
   disableSundays,
   disableSaturdays,
+  disableAllDays,
 }) => {
   const theme = useTheme();
   const [showSubtitles, setShowSubtitles] = useState(false);
@@ -93,12 +94,16 @@ const Calendar = ({
       const markedDate = processedMarkedDates.find(
         (item) => item.date.toDateString() === date.toDateString()
       );
-      let isDisabled = !!markedDate && markedDate.disabled;
-
-      if (
+      let isDisabled =
         (disableSundays && dayOfWeek === 0) ||
-        (disableSaturdays && dayOfWeek === 6)
-      ) {
+        (disableSaturdays && dayOfWeek === 6);
+
+      if (disableAllDays) {
+        isDisabled = !processedMarkedDates.find(
+          (item) =>
+            item.date.toDateString() === date.toDateString() && !item.disabled
+        );
+      } else if (!!markedDate && markedDate.disabled) {
         isDisabled = true;
       }
 
@@ -134,6 +139,7 @@ const Calendar = ({
     processedMarkedDates,
     disableSundays,
     disableSaturdays,
+    disableAllDays,
     currentInputValue,
     handleDayClick,
   ]);
@@ -169,6 +175,7 @@ Calendar.propTypes = {
   selectedDateTime: PropTypes.string,
   disableSundays: PropTypes.bool.isRequired,
   disableSaturdays: PropTypes.bool.isRequired,
+  disableAllDays: PropTypes.bool.isRequired,
 };
 
 export { Calendar };

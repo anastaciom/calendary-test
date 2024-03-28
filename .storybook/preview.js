@@ -1,4 +1,5 @@
-/** @type { import('@storybook/react').Preview } */
+import { theme } from "../src/Calendar/core/theme";
+
 const preview = {
   parameters: {
     controls: {
